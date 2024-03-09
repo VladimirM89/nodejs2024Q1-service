@@ -14,6 +14,6 @@ import { TracksModule } from 'src/tracks/tracks.module';
       useClass: InMemoryArtistsStorage,
     },
   ],
-  imports: [AlbumsModule, TracksModule]
+  imports: [AlbumsModule, TracksModule],
 })
 export class ArtistsModule {}

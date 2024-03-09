@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { AlbumsStorage } from "../interfaces/albums-storage.interface";
-import { Album } from "../entities/album.entity";
-import { CreateAlbumDto } from "../dto/create-album.dto";
-import { UpdateAlbumDto } from "../dto/update-album.dto";
+import { Injectable } from '@nestjs/common';
+import { AlbumsStorage } from '../interfaces/albums-storage.interface';
+import { Album } from '../entities/album.entity';
+import { CreateAlbumDto } from '../dto/create-album.dto';
+import { UpdateAlbumDto } from '../dto/update-album.dto';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -50,13 +50,13 @@ export class InMemoryAlbumsStorage implements AlbumsStorage {
     const album = this.findOne(id);
     const index = this.albums.indexOf(album);
     this.albums.splice(index, 1);
-  };
+  }
 
   removeArtist(artistId: string): void {
     this.albums.map((album) => {
       if (album.artistId === artistId) {
         album.artistId = null;
       }
-    })
+    });
   }
 }

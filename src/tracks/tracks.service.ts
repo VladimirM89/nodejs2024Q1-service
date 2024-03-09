@@ -5,7 +5,9 @@ import { TracksStorage } from './interfaces/tracks-storage.interface';
 
 @Injectable()
 export class TracksService {
-  constructor(@Inject('TracksStorage') private readonly tracksStorage: TracksStorage) {}
+  constructor(
+    @Inject('TracksStorage') private readonly tracksStorage: TracksStorage,
+  ) {}
 
   create(createTrackDto: CreateTrackDto) {
     return this.tracksStorage.create(createTrackDto);

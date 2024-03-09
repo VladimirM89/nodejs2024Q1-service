@@ -6,13 +6,14 @@ import { TracksModule } from 'src/tracks/tracks.module';
 
 @Module({
   controllers: [AlbumsController],
-  providers: [AlbumsService,
+  providers: [
+    AlbumsService,
     {
       provide: 'AlbumsStorage',
       useClass: InMemoryAlbumsStorage,
-    }
+    },
   ],
   imports: [TracksModule],
-  exports: [AlbumsService]
+  exports: [AlbumsService],
 })
 export class AlbumsModule {}

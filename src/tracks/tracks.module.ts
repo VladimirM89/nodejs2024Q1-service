@@ -5,9 +5,10 @@ import { InMemoryTracksStorage } from './storage/in-memory.tracks.storage';
 
 @Module({
   controllers: [TracksController],
-  providers: [TracksService,
+  providers: [
+    TracksService,
     {
-      provide: "TracksStorage",
+      provide: 'TracksStorage',
       useClass: InMemoryTracksStorage,
     },
   ],

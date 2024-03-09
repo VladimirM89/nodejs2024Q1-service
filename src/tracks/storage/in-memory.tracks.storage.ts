@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { TracksStorage } from "../interfaces/tracks-storage.interface";
-import { Track } from "../entities/track.entity";
-import { CreateTrackDto } from "../dto/create-track.dto";
-import { UpdateTrackDto } from "../dto/update-track.dto";
+import { Injectable } from '@nestjs/common';
+import { TracksStorage } from '../interfaces/tracks-storage.interface';
+import { Track } from '../entities/track.entity';
+import { CreateTrackDto } from '../dto/create-track.dto';
+import { UpdateTrackDto } from '../dto/update-track.dto';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -58,7 +58,7 @@ export class InMemoryTracksStorage implements TracksStorage {
       if (track.artistId === artistId) {
         track.artistId = null;
       }
-    })
+    });
   }
 
   removeAlbum(albumId: string): void {
@@ -66,6 +66,6 @@ export class InMemoryTracksStorage implements TracksStorage {
       if (track.albumId === albumId) {
         track.albumId = null;
       }
-    })
+    });
   }
-};
+}
