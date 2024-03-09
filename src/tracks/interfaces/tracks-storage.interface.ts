@@ -8,4 +8,6 @@ export interface TracksStorage {
   findOne(id: string): Track | undefined;
   update(id: string, updatePasswordDto: UpdateTrackDto): Track;
   remove(id: string): void;
+  removeArtist(artistId: string): void;
+  removeAlbum(AlbumId: string): void;
 }

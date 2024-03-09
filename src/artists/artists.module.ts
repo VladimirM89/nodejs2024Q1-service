@@ -3,6 +3,7 @@ import { ArtistsService } from './artists.service';
 import { ArtistsController } from './artists.controller';
 import { InMemoryArtistsStorage } from './storage/in-memory.artists.storage';
 import { AlbumsModule } from 'src/albums/albums.module';
+import { TracksModule } from 'src/tracks/tracks.module';
 
 @Module({
   controllers: [ArtistsController],
@@ -13,6 +14,6 @@ import { AlbumsModule } from 'src/albums/albums.module';
       useClass: InMemoryArtistsStorage,
     },
   ],
-  imports: [AlbumsModule]
+  imports: [AlbumsModule, TracksModule]
 })
 export class ArtistsModule {}

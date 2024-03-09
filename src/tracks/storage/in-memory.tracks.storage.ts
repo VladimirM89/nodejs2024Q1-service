@@ -52,4 +52,20 @@ export class InMemoryTracksStorage implements TracksStorage {
     const index = this.tracks.indexOf(track);
     this.tracks.splice(index, 1);
   }
-}
+
+  removeArtist(artistId: string): void {
+    this.tracks.map((track) => {
+      if (track.artistId === artistId) {
+        track.artistId = null;
+      }
+    })
+  }
+
+  removeAlbum(albumId: string): void {
+    this.tracks.map((track) => {
+      if (track.albumId === albumId) {
+        track.albumId = null;
+      }
+    })
+  }
+};

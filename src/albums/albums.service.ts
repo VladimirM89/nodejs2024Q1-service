@@ -2,10 +2,14 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { AlbumsStorage } from './interfaces/albums-storage.interface';
+import { TracksService } from 'src/tracks/tracks.service';
 
 @Injectable()
 export class AlbumsService {
-  constructor(@Inject('AlbumsStorage') private albumsStorage: AlbumsStorage) {}
+  constructor(
+    @Inject('AlbumsStorage') private albumsStorage: AlbumsStorage,
+    private readonly tracksService: TracksService,
+  ) {}
 
   create(createAlbumDto: CreateAlbumDto) {
     return this.albumsStorage.create(createAlbumDto);
@@ -24,6 +28,7 @@ export class AlbumsService {
   }
 
   remove(id: string) {
+    this.tracksService.removeAlbumFromTrack(id);
     return this.albumsStorage.remove(id);
   }
 

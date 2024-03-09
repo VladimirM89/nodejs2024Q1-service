@@ -10,6 +10,7 @@ import { InMemoryTracksStorage } from './storage/in-memory.tracks.storage';
       provide: "TracksStorage",
       useClass: InMemoryTracksStorage,
     },
-  ]
+  ],
+  exports: [TracksService],
 })
 export class TracksModule {}

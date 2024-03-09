@@ -26,4 +26,12 @@ export class TracksService {
   remove(id: string) {
     return this.tracksStorage.remove(id);
   }
+
+  removeArtistFromTrack(artistId: string) {
+    return this.tracksStorage.removeArtist(artistId);
+  }
+
+  removeAlbumFromTrack(albumId: string) {
+    return this.tracksStorage.removeAlbum(albumId);
+  }
 }

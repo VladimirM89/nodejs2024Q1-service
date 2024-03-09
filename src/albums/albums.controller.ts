@@ -58,8 +58,6 @@ export class AlbumsController {
       throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
     }
 
-    // TODO: delete Album from Track entity
-
     return this.albumsService.remove(id);
   }
 }
