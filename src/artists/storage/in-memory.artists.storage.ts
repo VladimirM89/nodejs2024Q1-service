@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { ArtistsStorage } from "../interfaces/artists-storage.interface";
-import { Artist } from "../entities/artist.entity";
-import { CreateArtistDto } from "../dto/create-artist.dto";
-import { UpdateArtistDto } from "../dto/update-artist.dto";
+import { Injectable } from '@nestjs/common';
+import { ArtistsStorage } from '../interfaces/artists-storage.interface';
+import { Artist } from '../entities/artist.entity';
+import { CreateArtistDto } from '../dto/create-artist.dto';
+import { UpdateArtistDto } from '../dto/update-artist.dto';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class InMemoryArtistsStorage implements ArtistsStorage {
     const index = this.artists.indexOf(artist);
     const updatedArtist: Artist = {
       ...artist,
-      ...updateArtistDto
+      ...updateArtistDto,
     };
 
     this.artists.splice(index, 1, updatedArtist);
@@ -49,5 +49,5 @@ export class InMemoryArtistsStorage implements ArtistsStorage {
     const artist = this.findOne(id);
     const index = this.artists.indexOf(artist);
     this.artists.splice(index, 1);
-  };
+  }
 }

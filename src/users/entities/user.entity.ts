@@ -1,4 +1,4 @@
-import { Exclude } from "class-transformer";
+import { Exclude } from 'class-transformer';
 
 export class User {
   id: string; // uuid v4
@@ -12,6 +12,6 @@ export class User {
   updatedAt: number; // timestamp of last update
 
   constructor(partial: Partial<User>) {
-    Object.assign(this, partial)
+    Object.assign(this, partial);
   }
 }

@@ -27,15 +27,15 @@ export class InMemoryUsersStorage implements UsersStorage {
 
     this.users.push(newUser);
     return newUser;
-  };
+  }
 
   findAll(): Array<User> {
     return this.users;
-  };
+  }
 
   findOne(id: string): User | undefined {
-    return this.users.find((user) => user.id === id)
-  };
+    return this.users.find((user) => user.id === id);
+  }
 
   update(id: string, updatePasswordDto: UpdatePasswordDto): User {
     const user = this.findOne(id);
@@ -43,17 +43,17 @@ export class InMemoryUsersStorage implements UsersStorage {
     const updatedUser = new User({
       ...user,
       password: updatePasswordDto.newPassword,
-      version: user.version += 1,
+      version: (user.version += 1),
       updatedAt: Date.now(),
     });
 
     this.users.splice(index, 1, updatedUser);
     return updatedUser;
-  };
+  }
 
   remove(id: string): void {
     const user = this.findOne(id);
     const index = this.users.indexOf(user);
     this.users.splice(index, 1);
-  };
+  }
 }

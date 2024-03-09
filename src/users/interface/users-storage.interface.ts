@@ -1,6 +1,6 @@
-import { CreateUserDto } from "../dto/create-user.dto";
-import { UpdatePasswordDto } from "../dto/update-password.dto";
-import { User } from "../entities/user.entity";
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdatePasswordDto } from '../dto/update-password.dto';
+import { User } from '../entities/user.entity';
 
 export interface UsersStorage {
   create(createUserDto: CreateUserDto): User;

@@ -5,7 +5,9 @@ import { ArtistsStorage } from './interfaces/artists-storage.interface';
 
 @Injectable()
 export class ArtistsService {
-  constructor(@Inject('ArtistsStorage') private artistsStorage: ArtistsStorage) {}
+  constructor(
+    @Inject('ArtistsStorage') private artistsStorage: ArtistsStorage,
+  ) {}
 
   create(createArtistDto: CreateArtistDto) {
     return this.artistsStorage.create(createArtistDto);

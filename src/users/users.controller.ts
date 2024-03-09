@@ -35,31 +35,35 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     if (!uuidValidate(id)) {
-      throw new HttpException("Id is not uuid type", HttpStatus.BAD_REQUEST);
+      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
     }
     const user = this.usersService.findOne(id);
 
     if (!user) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
     return user;
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updatePasswordDto: UpdatePasswordDto) {
-
+  update(
+    @Param('id') id: string,
+    @Body() updatePasswordDto: UpdatePasswordDto,
+  ) {
     if (!uuidValidate(id)) {
-      throw new HttpException("Id is not uuid type", HttpStatus.BAD_REQUEST);
+      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
     }
     const user = this.usersService.findOne(id);
 
     if (!user) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    if(!this.usersService.checkUserPassword(id, updatePasswordDto.oldPassword)) {
-      throw new HttpException("Password is incorrect", HttpStatus.FORBIDDEN);
+    if (
+      !this.usersService.checkUserPassword(id, updatePasswordDto.oldPassword)
+    ) {
+      throw new HttpException('Password is incorrect', HttpStatus.FORBIDDEN);
     }
 
     return this.usersService.update(id, updatePasswordDto);
@@ -69,12 +73,12 @@ export class UsersController {
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     if (!uuidValidate(id)) {
-      throw new HttpException("Id is not uuid type", HttpStatus.BAD_REQUEST);
+      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
     }
     const user = this.usersService.findOne(id);
 
     if (!user) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
     return this.usersService.remove(id);
