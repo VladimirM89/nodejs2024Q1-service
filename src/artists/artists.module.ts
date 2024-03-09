@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ArtistsService } from './artists.service';
 import { ArtistsController } from './artists.controller';
 import { InMemoryArtistsStorage } from './storage/in-memory.artists.storage';
+import { AlbumsModule } from 'src/albums/albums.module';
 
 @Module({
   controllers: [ArtistsController],
@@ -12,5 +13,6 @@ import { InMemoryArtistsStorage } from './storage/in-memory.artists.storage';
       useClass: InMemoryArtistsStorage,
     },
   ],
+  imports: [AlbumsModule]
 })
 export class ArtistsModule {}

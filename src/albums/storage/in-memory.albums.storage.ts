@@ -51,4 +51,12 @@ export class InMemoryAlbumsStorage implements AlbumsStorage {
     const index = this.albums.indexOf(album);
     this.albums.splice(index, 1);
   };
+
+  removeArtist(artistId: string): void {
+    this.albums.map((album) => {
+      if (album.artistId === artistId) {
+        album.artistId = null;
+      }
+    })
+  }
 }

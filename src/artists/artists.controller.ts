@@ -69,8 +69,6 @@ export class ArtistsController {
       throw new HttpException('Artist not found', HttpStatus.NOT_FOUND);
     }
 
-        // TODO: delete Artist from Track and Album entity
-
     return this.artistsService.remove(id);
   }
 }

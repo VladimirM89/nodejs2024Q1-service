@@ -8,4 +8,5 @@ export interface AlbumsStorage {
   findOne(id: string): Album | undefined;
   update(id: string, updateAlbumDto: UpdateAlbumDto): Album;
   remove(id: string): void;
+  removeArtist(id: string): void;
 }

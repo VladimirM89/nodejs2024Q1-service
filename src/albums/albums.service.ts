@@ -26,4 +26,8 @@ export class AlbumsService {
   remove(id: string) {
     return this.albumsStorage.remove(id);
   }
+
+  removeArtistFromAlbum(artistId: string) {
+    return this.albumsStorage.removeArtist(artistId);
+  }
 }
