@@ -5,7 +5,7 @@ export class CreateArtistDto {
   @IsString()
   name: string;
 
-  @IsNotEmpty({ message: 'Login not should be empty' })
+  @IsNotEmpty({ message: 'Artist property grammy not should be empty' })
   @IsBoolean()
   grammy: boolean;
 }

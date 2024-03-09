@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus, Put, HttpCode } from '@nestjs/common';
 import { AlbumsService } from './albums.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
+import { validate as uuidValidate } from 'uuid';
 
-@Controller('albums')
+@Controller('album')
 export class AlbumsController {
   constructor(private readonly albumsService: AlbumsService) {}
 
@@ -19,16 +20,46 @@ export class AlbumsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.albumsService.findOne(+id);
+    if (!uuidValidate(id)) {
+      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
+    }
+    const album = this.albumsService.findOne(id);
+
+    if (!album) {
+      throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
+    }
+
+    return this.albumsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateAlbumDto: UpdateAlbumDto) {
-    return this.albumsService.update(+id, updateAlbumDto);
+    if (!uuidValidate(id)) {
+      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
+    }
+    const album = this.albumsService.findOne(id);
+
+    if (!album) {
+      throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
+    }
+
+    return this.albumsService.update(id, updateAlbumDto);
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
-    return this.albumsService.remove(+id);
+    if (!uuidValidate(id)) {
+      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
+    }
+    const album = this.albumsService.findOne(id);
+
+    if (!album) {
+      throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
+    }
+
+    // TODO: delete Album from Track entity
+
+    return this.albumsService.remove(id);
   }
 }
