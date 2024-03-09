@@ -7,5 +7,5 @@ export interface UsersStorage {
   findAll(): Array<User>;
   findOne(id: string): User | undefined;
   update(id: string, updatePasswordDto: UpdatePasswordDto): User;
-  remove: (id: string) => void;
+  remove(id: string): void;
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersStorage } from '../interface/users-storage.interface';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { UpdatePasswordDto } from '../dto/update-password.dto';
 
 @Injectable()
@@ -51,7 +51,7 @@ export class InMemoryUsersStorage implements UsersStorage {
     return updatedUser;
   };
 
-  remove(id: string) {
+  remove(id: string): void {
     const user = this.findOne(id);
     const index = this.users.indexOf(user);
     this.users.splice(index, 1);
