@@ -40,7 +40,7 @@ export class ArtistsController {
       throw new HttpException('Artist not found', HttpStatus.NOT_FOUND);
     }
 
-    return this.artistsService.findOne(id);
+    return artist;
   }
 
   @Put(':id')
