@@ -34,7 +34,7 @@ Rename file .env.example to .env
 To run server enter:
 
 ```
-npm run start
+npm start
 ```
 
 Server will start on 4000 (port from .env file).
