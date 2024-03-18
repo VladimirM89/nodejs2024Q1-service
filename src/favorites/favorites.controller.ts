@@ -7,6 +7,7 @@ import {
   HttpCode,
   HttpStatus,
   HttpException,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
 import { validate as uuidValidate } from 'uuid';
@@ -21,11 +22,7 @@ export class FavoritesController {
   }
 
   @Post('track/:id')
-  createTrack(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-
+  createTrack(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const isTrackAdded = this.favoritesService.createTrack(id);
 
     if (!isTrackAdded) {
@@ -38,11 +35,7 @@ export class FavoritesController {
 
   @Delete('track/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  removeTrack(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-
+  removeTrack(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const isTrackDeleted = this.favoritesService.removeTrack(id);
 
     if (!isTrackDeleted) {
@@ -54,11 +47,7 @@ export class FavoritesController {
   }
 
   @Post('artist/:id')
-  createArtist(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-
+  createArtist(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const isArtistAdded = this.favoritesService.createArtist(id);
 
     if (!isArtistAdded) {
@@ -73,11 +62,7 @@ export class FavoritesController {
 
   @Delete('artist/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  removeArtist(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-
+  removeArtist(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const isArtistDeleted = this.favoritesService.removeArtist(id);
 
     if (!isArtistDeleted) {
@@ -89,11 +74,7 @@ export class FavoritesController {
   }
 
   @Post('album/:id')
-  createAlbum(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-
+  createAlbum(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const isAlbumAdded = this.favoritesService.createAlbum(id);
 
     if (!isAlbumAdded) {
@@ -106,11 +87,7 @@ export class FavoritesController {
 
   @Delete('album/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  removeAlbum(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-
+  removeAlbum(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const isAlbumDeleted = this.favoritesService.removeAlbum(id);
 
     if (!isAlbumDeleted) {

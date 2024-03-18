@@ -1,14 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { FavoritesStorage } from './interfaces/favorites-storage.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Favorite } from './entities/favorite.entity';
+import { Repository } from 'typeorm';
 @Injectable()
 export class FavoritesService {
   constructor(
     @Inject('FavoritesStorage')
     private readonly favoritesStorage: FavoritesStorage,
+    @InjectRepository(Favorite)
+    private favoritesRepository: Repository<Favorite>,
   ) {}
 
   findAll() {
-    return this.favoritesStorage.findAll();
+    // return this.favoritesStorage.findAll();
+    return this.favoritesRepository.find();
   }
 
   createArtist(artistId: string) {

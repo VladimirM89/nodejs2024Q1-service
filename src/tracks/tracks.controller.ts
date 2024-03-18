@@ -14,7 +14,6 @@ import {
 import { TracksService } from './tracks.service';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
-import { validate as uuidValidate } from 'uuid';
 
 @Controller('track')
 export class TracksController {
