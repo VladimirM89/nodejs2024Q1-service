@@ -9,11 +9,11 @@ import {
   HttpStatus,
   Put,
   HttpCode,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { AlbumsService } from './albums.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
-import { validate as uuidValidate } from 'uuid';
 
 @Controller('album')
 export class AlbumsController {
@@ -30,11 +30,8 @@ export class AlbumsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const album = this.albumsService.findOne(id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const album = await this.albumsService.findOne(id);
 
     if (!album) {
       throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
@@ -44,11 +41,11 @@ export class AlbumsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateAlbumDto: UpdateAlbumDto) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const album = this.albumsService.findOne(id);
+  async update(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Body() updateAlbumDto: UpdateAlbumDto,
+  ) {
+    const album = await this.albumsService.findOne(id);
 
     if (!album) {
       throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
@@ -59,11 +56,8 @@ export class AlbumsController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const album = this.albumsService.findOne(id);
+  async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const album = await this.albumsService.findOne(id);
 
     if (!album) {
       throw new HttpException('Album not found', HttpStatus.NOT_FOUND);

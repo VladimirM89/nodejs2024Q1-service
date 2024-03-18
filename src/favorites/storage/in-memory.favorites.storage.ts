@@ -43,7 +43,7 @@ export class InMemoryFavoritesStorage implements FavoritesStorage {
           }
           return false;
         })
-        .filter((item) => !!item) as Array<Album>,
+        .filter((item) => !!item) as unknown as Array<Album>,
 
       tracks: this.tracksId
         .map((trackId) => {
