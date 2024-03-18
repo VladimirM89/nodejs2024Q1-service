@@ -11,11 +11,11 @@ import {
   HttpCode,
   UseInterceptors,
   ClassSerializerInterceptor,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { validate as uuidValidate } from 'uuid';
 
 @Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -33,11 +33,8 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const user = this.usersService.findOne(id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const user = await this.usersService.findOne(id);
 
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
@@ -47,22 +44,22 @@ export class UsersController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
+  async update(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() updatePasswordDto: UpdatePasswordDto,
   ) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const user = this.usersService.findOne(id);
+    const user = await this.usersService.findOne(id);
 
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    if (
-      !this.usersService.checkUserPassword(id, updatePasswordDto.oldPassword)
-    ) {
+    const isPasswordCorrect = await this.usersService.checkUserPassword(
+      id,
+      updatePasswordDto.oldPassword,
+    );
+
+    if (!isPasswordCorrect) {
       throw new HttpException('Password is incorrect', HttpStatus.FORBIDDEN);
     }
 
@@ -71,11 +68,8 @@ export class UsersController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const user = this.usersService.findOne(id);
+  async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const user = await this.usersService.findOne(id);
 
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
