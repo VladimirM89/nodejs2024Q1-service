@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { FavoritesStorage } from './interfaces/favorites-storage.interface';
-
 @Injectable()
 export class FavoritesService {
   constructor(

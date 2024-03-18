@@ -9,6 +9,7 @@ import {
   HttpStatus,
   HttpException,
   Put,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { TracksService } from './tracks.service';
 import { CreateTrackDto } from './dto/create-track.dto';
@@ -30,11 +31,8 @@ export class TracksController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const track = this.tracksService.findOne(id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const track = await this.tracksService.findOne(id);
 
     if (!track) {
       throw new HttpException('Track not found', HttpStatus.NOT_FOUND);
@@ -44,11 +42,11 @@ export class TracksController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateTrackDto: UpdateTrackDto) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const track = this.tracksService.findOne(id);
+  async update(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Body() updateTrackDto: UpdateTrackDto,
+  ) {
+    const track = await this.tracksService.findOne(id);
 
     if (!track) {
       throw new HttpException('Track not found', HttpStatus.NOT_FOUND);
@@ -59,11 +57,8 @@ export class TracksController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const track = this.tracksService.findOne(id);
+  async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const track = await this.tracksService.findOne(id);
 
     if (!track) {
       throw new HttpException('Track not found', HttpStatus.NOT_FOUND);

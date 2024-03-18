@@ -9,11 +9,11 @@ import {
   HttpException,
   HttpStatus,
   HttpCode,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ArtistsService } from './artists.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
-import { validate as uuidValidate } from 'uuid';
 
 @Controller('artist')
 export class ArtistsController {
@@ -30,11 +30,8 @@ export class ArtistsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const artist = this.artistsService.findOne(id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const artist = await this.artistsService.findOne(id);
 
     if (!artist) {
       throw new HttpException('Artist not found', HttpStatus.NOT_FOUND);
@@ -44,11 +41,11 @@ export class ArtistsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateArtistDto: UpdateArtistDto) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const artist = this.artistsService.findOne(id);
+  async update(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Body() updateArtistDto: UpdateArtistDto,
+  ) {
+    const artist = await this.artistsService.findOne(id);
 
     if (!artist) {
       throw new HttpException('Artist not found', HttpStatus.NOT_FOUND);
@@ -59,11 +56,8 @@ export class ArtistsController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string) {
-    if (!uuidValidate(id)) {
-      throw new HttpException('Id is not uuid type', HttpStatus.BAD_REQUEST);
-    }
-    const artist = this.artistsService.findOne(id);
+  async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const artist = await this.artistsService.findOne(id);
 
     if (!artist) {
       throw new HttpException('Artist not found', HttpStatus.NOT_FOUND);
