@@ -10,22 +10,23 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
-import { validate as uuidValidate } from 'uuid';
 
 @Controller('favs')
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
   @Get()
-  findAll() {
-    return this.favoritesService.findAll();
+  async findAll() {
+    return await this.favoritesService.findAll();
   }
 
   @Post('track/:id')
-  createTrack(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const isTrackAdded = this.favoritesService.createTrack(id);
+  async createTrack(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
+    const isTrackAdded = await this.favoritesService.createTrack(id);
 
-    if (!isTrackAdded) {
+    if (!isTrackAdded.trackId) {
       throw new HttpException(
         'Track not exist',
         HttpStatus.UNPROCESSABLE_ENTITY,
@@ -35,10 +36,12 @@ export class FavoritesController {
 
   @Delete('track/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  removeTrack(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const isTrackDeleted = this.favoritesService.removeTrack(id);
+  async removeTrack(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
+    const isTrackDeleted = await this.favoritesService.removeTrack(id);
 
-    if (!isTrackDeleted) {
+    if (!isTrackDeleted.affected) {
       throw new HttpException(
         'This track is not in favorite',
         HttpStatus.NOT_FOUND,
@@ -47,25 +50,29 @@ export class FavoritesController {
   }
 
   @Post('artist/:id')
-  createArtist(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const isArtistAdded = this.favoritesService.createArtist(id);
+  async createArtist(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
+    return await this.favoritesService.createArtist(id);
 
-    if (!isArtistAdded) {
-      throw new HttpException(
-        'Artist already exist in favorites',
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
-    }
+    // if (!isArtistAdded.artistId) {
+    //   throw new HttpException(
+    //     'Artist already exist in favorites',
+    //     HttpStatus.UNPROCESSABLE_ENTITY,
+    //   );
+    // }
 
-    return this.favoritesService.createArtist(id);
+    // return this.favoritesService.createArtist(id);
   }
 
   @Delete('artist/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  removeArtist(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const isArtistDeleted = this.favoritesService.removeArtist(id);
+  async removeArtist(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
+    const isArtistDeleted = await this.favoritesService.removeArtist(id);
 
-    if (!isArtistDeleted) {
+    if (!isArtistDeleted.affected) {
       throw new HttpException(
         'This track is not in favorite',
         HttpStatus.NOT_FOUND,
@@ -74,23 +81,27 @@ export class FavoritesController {
   }
 
   @Post('album/:id')
-  createAlbum(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const isAlbumAdded = this.favoritesService.createAlbum(id);
+  async createAlbum(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
+    return await this.favoritesService.createAlbum(id);
 
-    if (!isAlbumAdded) {
-      throw new HttpException(
-        'Album already exist in favorites',
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
-    }
+    // if (!isAlbumAdded.albumId) {
+    //   throw new HttpException(
+    //     'Album already exist in favorites',
+    //     HttpStatus.UNPROCESSABLE_ENTITY,
+    //   );
+    // }
   }
 
   @Delete('album/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  removeAlbum(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const isAlbumDeleted = this.favoritesService.removeAlbum(id);
+  async removeAlbum(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
+    const isAlbumDeleted = await this.favoritesService.removeAlbum(id);
 
-    if (!isAlbumDeleted) {
+    if (!isAlbumDeleted.affected) {
       throw new HttpException(
         'This track is not in favorite',
         HttpStatus.NOT_FOUND,
