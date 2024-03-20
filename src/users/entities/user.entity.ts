@@ -24,10 +24,10 @@ export class User {
   version: number; // integer number, increments on update
 
   @CreateDateColumn()
-  createdAt: Date; // timestamp of creation
+  createdAt: Date; // Date of creation
 
   @UpdateDateColumn()
-  updatedAt: Date; // timestamp of last update
+  updatedAt: Date; // Date of last update
 
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);

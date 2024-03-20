@@ -54,15 +54,6 @@ export class FavoritesController {
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
   ) {
     return await this.favoritesService.createArtist(id);
-
-    // if (!isArtistAdded.artistId) {
-    //   throw new HttpException(
-    //     'Artist already exist in favorites',
-    //     HttpStatus.UNPROCESSABLE_ENTITY,
-    //   );
-    // }
-
-    // return this.favoritesService.createArtist(id);
   }
 
   @Delete('artist/:id')
@@ -85,13 +76,6 @@ export class FavoritesController {
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
   ) {
     return await this.favoritesService.createAlbum(id);
-
-    // if (!isAlbumAdded.albumId) {
-    //   throw new HttpException(
-    //     'Album already exist in favorites',
-    //     HttpStatus.UNPROCESSABLE_ENTITY,
-    //   );
-    // }
   }
 
   @Delete('album/:id')

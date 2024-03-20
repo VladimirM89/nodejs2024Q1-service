@@ -16,26 +16,24 @@ export class FavoritesService {
   ) {}
 
   async findAll() {
-    const artists = await this.favoriteArtistRepository.find({
+    const artistFavorites = await this.favoriteArtistRepository.find({
       relations: { artist: true },
     });
-    const albums = await this.favoriteAlbumRepository.find({
+    const albumFavorites = await this.favoriteAlbumRepository.find({
       relations: { album: true },
     });
-    const tracks = await this.favoriteTrackRepository.find({
+    const trackFavorites = await this.favoriteTrackRepository.find({
       relations: { track: true },
     });
 
-    const art = artists.map((item) => item.artist);
-    const alb = albums.map((item) => item.album);
-    const tr = tracks.map((item) => item.track);
+    const artists = artistFavorites.map((item) => item.artist);
+    const albums = albumFavorites.map((item) => item.album);
+    const tracks = trackFavorites.map((item) => item.track);
 
-    // console.log({ albums: alb, artists: art, tracks: tr });
-    return { albums: alb, artists: art, tracks: tr };
+    return { albums, artists, tracks };
   }
 
   async createArtist(artistId: string) {
-    // return this.favoritesStorage.createArtist(artistId);
     const artist = this.favoriteArtistRepository.create({ artistId });
 
     try {
@@ -46,18 +44,13 @@ export class FavoritesService {
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
-
-    // console.log(artist);
-    // return artist;
   }
 
   async removeArtist(artistId: string) {
-    // return this.favoritesStorage.deleteArtist(artistId);
     return await this.favoriteArtistRepository.delete({ artistId });
   }
 
   async createAlbum(albumId: string) {
-    // return this.favoritesStorage.createAlbum(albumId);
     const album = this.favoriteAlbumRepository.create({ albumId });
 
     try {
@@ -71,12 +64,10 @@ export class FavoritesService {
   }
 
   async removeAlbum(albumId: string) {
-    // return this.favoritesStorage.deleteAlbum(albumId);
     return await this.favoriteAlbumRepository.delete({ albumId });
   }
 
   async createTrack(trackId: string) {
-    // return this.favoritesStorage.createTrack(trackId);
     const track = this.favoriteTrackRepository.create({ trackId });
 
     try {
@@ -90,7 +81,6 @@ export class FavoritesService {
   }
 
   async removeTrack(trackId: string) {
-    // return this.favoritesStorage.deleteTrack(trackId);
     return await this.favoriteTrackRepository.delete({ trackId });
   }
 }
