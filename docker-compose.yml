@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   server:
-    image: homeservice-server
+    image: vmilashevsky/homeservice-server
     build: .
     env_file:
       - .env
@@ -24,6 +24,7 @@ services:
       - homeservice
 
   postgres:
+    image: vmilashevsky/homeservice-postgres
     build: ./src/db
     env_file:
       - .env
