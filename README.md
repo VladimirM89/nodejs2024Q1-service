@@ -8,7 +8,7 @@
 ## Downloading
 
 ```
-git clone https://github.com/VladimirM89/nodejs2024Q1-service
+git clone https://github.com/VladimirM89/nodejs2024Q1-service.git
 ```
 
 ## Installing NPM modules
@@ -20,7 +20,7 @@ npm install
 ## Enter to developing branch
 
 ```
-git checkout develop
+git checkout docker_database
 ```
 
 ## Rename .env.example
@@ -29,22 +29,32 @@ git checkout develop
 Rename file .env.example to .env
 ```
 
-## Running application
+## Docker container
 
-To run server enter:
+To run docker container:
 
 ```
-npm start
+docker-compose up
 ```
 
 Server will start on 4000 (port from .env file).
 
-## Documentation
-
-To open documentation
+To stop docker container:
 
 ```
-http://localhost:4000/docs
+docker-compose stop             or press Ctrl+C
+```
+
+To show running docker containers:
+
+```
+docker ps
+```
+
+To show images info (size):
+
+```
+docker images
 ```
 
 ## Testing
@@ -57,10 +67,20 @@ To run all tests without authorization
 npm run test
 ```
 
-To run only one of all test suites
+## Scan vulnerabilities
+
+To scan vulnerabilities (docker scout):
 
 ```
-npm run test -- <path to suite>
+npm run scan
+```
+
+## Documentation
+
+To open documentation
+
+```
+http://localhost:4000/docs
 ```
 
 ### Auto-fix and format
