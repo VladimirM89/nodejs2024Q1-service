@@ -37,7 +37,13 @@ Rename file .env.example to .env
 
 ## Docker container
 
-To run docker container:
+To build and run docker container:
+
+```
+docker-compose up --build
+```
+
+In this case container will build and start. Just to up container (not build):
 
 ```
 docker-compose up
@@ -51,13 +57,13 @@ To stop docker container:
 docker-compose stop             or press Ctrl+C
 ```
 
-To show running docker containers:
+To show running docker containers list:
 
 ```
 docker ps
 ```
 
-To show images info (size):
+To show docker images info (size):
 
 ```
 docker images
