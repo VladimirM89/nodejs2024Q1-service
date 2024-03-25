@@ -7,8 +7,7 @@ import { AlbumsModule } from './albums/albums.module';
 import { TracksModule } from './tracks/tracks.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import typeorm from './configs/typeorm';
+import { config } from './configs/typeorm';
 
 @Module({
   imports: [
@@ -17,12 +16,7 @@ import typeorm from './configs/typeorm';
     AlbumsModule,
     TracksModule,
     FavoritesModule,
-    ConfigModule.forRoot({ isGlobal: true, load: [typeorm] }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) =>
-        configService.get('typeorm'),
-    }),
+    TypeOrmModule.forRoot(config),
   ],
   controllers: [AppController],
   providers: [AppService],
