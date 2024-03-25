@@ -8,5 +8,5 @@ RUN npm install
 
 COPY . .
 
-CMD [ "npm", "run", "start:dev" ]
+CMD  npm run migration:run && npm run start:dev
 

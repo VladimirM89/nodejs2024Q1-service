@@ -11,6 +11,12 @@
 git clone https://github.com/VladimirM89/nodejs2024Q1-service.git
 ```
 
+Change directory:
+
+```
+cd nodejs2024Q1-service
+```
+
 ## Installing NPM modules
 
 ```
