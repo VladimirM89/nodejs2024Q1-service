@@ -8,7 +8,13 @@
 ## Downloading
 
 ```
-git clone {repository URL}
+git clone https://github.com/VladimirM89/nodejs2024Q1-service.git
+```
+
+Change directory:
+
+```
+cd nodejs2024Q1-service
 ```
 
 ## Installing NPM modules
@@ -17,15 +23,51 @@ git clone {repository URL}
 npm install
 ```
 
-## Running application
+## Enter to developing branch
 
 ```
-npm start
+git checkout docker_database
 ```
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+## Rename .env.example
+
+```
+Rename file .env.example to .env
+```
+
+## Docker container
+
+To build and run docker container:
+
+```
+docker-compose up --build
+```
+
+In this case container will build and start. Just to up container (not build):
+
+```
+docker-compose up
+```
+
+Server will start on 4000 (port from .env file).
+
+To stop docker container:
+
+```
+docker-compose stop             or press Ctrl+C
+```
+
+To show running docker containers list:
+
+```
+docker ps
+```
+
+To show docker images info (size):
+
+```
+docker images
+```
 
 ## Testing
 
@@ -37,22 +79,20 @@ To run all tests without authorization
 npm run test
 ```
 
-To run only one of all test suites
+## Scan vulnerabilities
+
+To scan vulnerabilities (docker scout):
 
 ```
-npm run test -- <path to suite>
+npm run scan
 ```
 
-To run all test with authorization
+## Documentation
+
+To open documentation
 
 ```
-npm run test:auth
-```
-
-To run only specific test suite with authorization
-
-```
-npm run test:auth -- <path to suite>
+http://localhost:4000/docs
 ```
 
 ### Auto-fix and format
@@ -64,9 +104,3 @@ npm run lint
 ```
 npm run format
 ```
-
-### Debugging in VSCode
-
-Press <kbd>F5</kbd> to debug.
-
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging

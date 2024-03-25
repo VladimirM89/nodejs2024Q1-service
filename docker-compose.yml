@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  server:
+    image: vmilashevsky/homeservice-server
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      PORT: ${PORT}
+      DB_HOST: ${POSTGRESDB_HOST}
+      DB_USER: ${POSTGRESDB_USER}
+      DB_PASSWORD: ${POSTGRESDB_PASSWORD}
+      DB_NAME: ${POSTGRESDB_DATABASE}
+      DB_PORT: ${POSTGRESDB_DOCKER_PORT}
+    volumes:
+      - ./src:/app/src
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - homeservice
+
+  postgres:
+    image: vmilashevsky/homeservice-postgres
+    build: ./src/db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRESDB_USER}
+      POSTGRES_PASSWORD: ${POSTGRESDB_PASSWORD}
+      POSTGRES_DB: ${POSTGRESDB_DATABASE}
+    ports:
+      - "${POSTGRESDB_LOCAL_PORT}:${POSTGRESDB_DOCKER_PORT}"
+    volumes:
+      - ./pgdata:/var/lib/postgres/data
+    restart: always
+    networks:
+      - homeservice
+
+networks:
+  homeservice:
+    name: homeservice
+    driver: bridge
+
+volumes:
+  pgdata:
+
+
