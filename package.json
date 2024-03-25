@@ -20,7 +20,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "scan": "docker scout cves nodejs2024q1-service-postgres:latest && docker scout cves homeservice-server:latest",
+    "scan": "docker scout cves vmilashevsky/homeservice-server && docker scout cves vmilashevsky/homeservice-postgres",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "migration:run": "npm run build && npm run typeorm migration:run -- -d ./src/configs/typeorm.ts",
     "migration:generate": "npm run build && npm run typeorm -- -d ./src/configs/typeorm.ts migration:generate",
